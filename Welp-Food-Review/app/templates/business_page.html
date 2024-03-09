@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ business[1] }} - Restaurant Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-white shadow">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="/" class="text-red-600 text-3xl font-bold">Welp</a>
+            <div class="flex space-x-4">
+                <a href="/main-page" class="hover:text-red-600">Home</a>
+                <a href="/business-login" class="hover:text-red-600">For Businesses</a>
+                <a href="/login" class="hover:text-red-600">Log In</a>
+                <a href="/create-user" class="hover:text-red-600">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <article class="business-details bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-bold text-2xl mb-2">{{ business[1] }}</h3>
+            <p>{{ business[2] }}</p>
+            <p class="text-gray-600">Rating: {{ business[9] }} / 5</p>
+
+            <div class="mt-6">
+                <h4 class="font-semibold text-lg mb-4">Write a Review:</h4>
+                <form class="review-form" method="post" action="{{ url_for('submit_review', business_id=business[0]) }}" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="rating" class="block mb-2">Your Rating (Out of 5):</label>
+                        <input type="number" id="rating" name="rating" class="w-full p-2 border rounded" min="1" max="5" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="reviewText" class="block mb-2">Your Review:</label>
+                        <textarea id="reviewText" name="reviewText" rows="4" class="w-full p-2 border rounded" required></textarea>
+                    </div>
+                    <input type="file" name="photo">
+                    <button type="submit" class="bg-red-600 text-white p-3 rounded hover:bg-red-700 focus:outline-none">Submit Review</button>
+                </form>
+            </div>
+        </article>
+
+        <!-- Reviews Section -->
+        <section class="reviews mt-8">
+            <h4 class="font-semibold text-xl mb-4">Reviews:</h4>
+            {% for review in reviews %}
+            <div class="review bg-white p-4 rounded-lg shadow-md mb-4">
+                <p class="font-semibold">{{ review[2] }}</p> <!-- Display username -->
+                <p>Rating: {{ review[4] }} / 5</p>
+                <p>{{ review[3] }}</p>
+                <p>Photo: <img src="data:image/jpeg;base64,{{ review[-1] }}" alt="Review photo"></p>
+            </div>
+        {% else %}
+            <p>No reviews yet.</p>
+        {% endfor %}
+        </section>
+    </main>
+
+    <footer class="bg-white shadow mt-8 py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm text-gray-600">&copy; 2023 Restaurant Listings. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
