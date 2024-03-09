@@ -1,7 +1,7 @@
 # Welp (Food Review)
 ### Paul Zhao
 pazhao@chapman.edu
-2369076
+https://www.linkedin.com/in/paul-zhao/
 
 ## Instructions
 **Dependecies** : 
